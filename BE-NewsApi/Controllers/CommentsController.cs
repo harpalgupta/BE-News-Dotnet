@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
+using Article.Models;
+using BE_NewsApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using User.Models;
@@ -14,58 +16,58 @@ namespace BE_NewsApi.Controllers
 
 
     [Route("api/[controller]")]
-    public class UsersController : Controller
+    public class CommentsController : Controller
     {
         private readonly NewsContext _context;
 
-        public UsersController(NewsContext context)
+        public CommentsController(NewsContext context)
         {
             _context = context;
-
-
         }
-        // GET: api/users
+        // GET: api/articles
         [HttpGet]
-        public ActionResult<List<UserItem>> Get()
+        public ActionResult<List<CommentItem>> Get()
         {
-            return _context.Users?.ToList();
+
+
+            return _context.Comments?.ToList();
         }
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ActionResult<UserItem> Get(int id)
+        public ActionResult<CommentItem> Get(int id)
         {
-            return _context.Users
+            return _context.Comments
                 .Where(u => u.Id == id).FirstOrDefault();
         }
 
         // POST api/<controller>
         [HttpPost]
-        public async Task<ActionResult<UserItem>> Post([FromBody]UserItem user)
+        public async Task<ActionResult<CommentItem>> Post([FromBody]CommentItem comment)
         {
-            _context.Users.Add(user);
+            _context.Comments.Add(comment);
             await _context.SaveChangesAsync();
-            return user;
+            return comment;
 
         }
 
-        // PUT api/<controller>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
-        {
+        //// PUT api/<controller>/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody]string value)
+        //{
 
-        }
+        //}
 
         // DELETE api/<controller>/5
         [HttpDelete("{id}")]
-        public async Task<ActionResult<UserItem>> Delete(int id)
+        public async Task<ActionResult<CommentItem>> Delete(int id)
         {
-            var deleteUser = _context.Users
+            var deleteComment = _context.Comments
                 .Where(u => u.Id == id).FirstOrDefault();
 
-            _context.Users.Remove(deleteUser);
+            _context.Comments.Remove(deleteComment);
             await _context.SaveChangesAsync();
-            return deleteUser;
+            return deleteComment;
 
         }
     }

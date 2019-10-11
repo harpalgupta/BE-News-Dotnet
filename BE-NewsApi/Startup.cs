@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Article.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -37,8 +38,12 @@ namespace BE_NewsApi
             });
 
             // Add framework services.
-            services.AddDbContext<UserContext>(options =>
-                options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<NewsContext>(options =>
+            //    options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddEntityFrameworkNpgsql().AddDbContext<NewsContext>(opt =>
+                opt.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
         }
 
 
