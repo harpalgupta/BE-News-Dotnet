@@ -24,5 +24,12 @@ namespace Article.Models
         [Column("body"), JsonProperty]
         public string Body { get; set; }
 
+        [Column("topic"), JsonProperty]
+        public string Topic { get; set; }
+
+
+        [ForeignKey("Topic")]
+        public virtual TopicItem TopicItem { get; set; }
+
     }
 }

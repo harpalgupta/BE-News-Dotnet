@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Article.Models;
+using User.Models;
 
 namespace BE_NewsApi.Models
 {
@@ -12,8 +13,12 @@ namespace BE_NewsApi.Models
     {
         [Key, Column("comment_id"), JsonProperty]
         public int Id { get; set; }
+
+        [ForeignKey("UserId")]
         [Column("user_id"), JsonProperty]
         public int UserId { get; set; }
+        public virtual UserItem User { get; set; }
+
 
         [Column("article_id")]
         public int ArticleId { get; set; }
