@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using BE_NewsApi.Models;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using User.Models;
 
 namespace Article.Models
 {
@@ -30,6 +31,15 @@ namespace Article.Models
 
         [ForeignKey("Topic")]
         public virtual TopicItem TopicItem { get; set; }
+
+        [Column("user_id"), JsonProperty]
+        public int UserId { get; set; }
+
+        [ForeignKey("UserId")]
+        public virtual UserItem UserItem { get; }
+
+
+
 
     }
 }

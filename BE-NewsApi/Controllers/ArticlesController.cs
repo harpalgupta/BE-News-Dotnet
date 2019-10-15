@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Article.Models;
+using BE_NewsApi.Models;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using User.Models;
@@ -34,8 +35,9 @@ namespace BE_NewsApi.Controllers
 
         // GET api/<controller>/5
         [HttpGet("{id}")]
-        public ActionResult<ArticleItem> Get(int id)
+        public ActionResult<ArticleItem> Get(int id, Paging paging)
         {
+
             return _context.Articles
                 .Where(u => u.Id == id).FirstOrDefault();
         }
