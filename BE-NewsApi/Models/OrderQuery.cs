@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BE_NewsApi.Models
 {
-    public class Paging
+    public class OrderQuery
     {
-        public int PageSize { get; set; } = 10;
+        public string OrderBy { get; set; }
 
-        public int StartAtPosition { get; set; } = 0;
+        public string Direction { get; set; } = "descending";
 
     }
 }

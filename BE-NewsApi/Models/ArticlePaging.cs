@@ -5,11 +5,11 @@ using System.Threading.Tasks;
 
 namespace BE_NewsApi.Models
 {
-    public class Paging
+    public class ArticlePaging : Paging
     {
-        public int PageSize { get; set; } = 10;
 
-        public int StartAtPosition { get; set; } = 0;
+
+
 
     }
 }
