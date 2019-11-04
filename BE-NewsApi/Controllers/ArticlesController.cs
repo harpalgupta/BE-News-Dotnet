@@ -28,9 +28,28 @@ namespace BE_NewsApi.Controllers
         }
         // GET: api/articles
         [HttpGet]
-        public ActionResult<List<ArticleItem>> Get()
+        public ActionResult<List<ArticleItem>> Get(Paging paging, OrderQuery orderQuery)
         {
-            return _context.Articles?.ToList();
+            var articles = _context.Articles?.Skip(paging.StartAtPosition).Take(paging.PageSize);
+
+            switch (orderQuery.OrderBy)
+            {
+                case "body":
+                    articles = orderQuery.Direction == "descending" ? articles.OrderByDescending(a => a.Body) : articles.OrderBy(a => a.Body);
+                    break;
+                case "created_at":
+                    articles = orderQuery.Direction == "descending" ? articles.OrderByDescending(a => a.CreatedAt) : articles.OrderBy(a => a.CreatedAt);
+                    break;
+                case "votes":
+                    articles = orderQuery.Direction == "descending" ? articles.OrderByDescending(a => a.Votes) : articles.OrderBy(a => a.Votes);
+                    break;
+                default:
+                    articles = orderQuery.Direction == "descending" ? articles.OrderByDescending(a => a.Id) : articles.OrderBy(a => a.Id);
+                    break;
+            }
+
+
+            return articles.ToList();
         }
 
         // GET api/<controller>/5
@@ -43,14 +62,14 @@ namespace BE_NewsApi.Controllers
         }
 
         // POST api/<controller>
-        [HttpPost]
-        public async Task<ActionResult<ArticleItem>> Post([FromBody]ArticleItem article)
-        {
-            _context.Articles.Add(article);
-            await _context.SaveChangesAsync();
-            return article;
+        //[HttpPost]
+        //public async Task<ActionResult<ArticleItem>> Post([FromBody]ArticleItem article)
+        //{
+        //    _context.Articles.Add(article);
+        //    await _context.SaveChangesAsync();
+        //    return article;
 
-        }
+        //}
 
         //// PUT api/<controller>/5
         //[HttpPut("{id}")]
@@ -60,16 +79,18 @@ namespace BE_NewsApi.Controllers
         //}
 
         // DELETE api/<controller>/5
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<ArticleItem>> Delete(int id)
-        {
-            var deleteArticle = _context.Articles
-                .Where(u => u.Id == id).FirstOrDefault();
 
-            _context.Articles.Remove(deleteArticle);
-            await _context.SaveChangesAsync();
-            return deleteArticle;
+        //[HttpDelete("{id}")]
+        //public async Task<ActionResult<ArticleItem>> Delete(int id)
+        //{
+        //    var deleteArticle = _context.Articles
+        //        .Where(u => u.Id == id).FirstOrDefault();
 
-        }
+        //    _context.Articles.Remove(deleteArticle);
+        //    await _context.SaveChangesAsync();
+        //    return deleteArticle;
+
+        //}
+
     }
 }
