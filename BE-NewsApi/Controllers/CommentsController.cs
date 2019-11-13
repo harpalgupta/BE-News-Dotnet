@@ -37,8 +37,7 @@ namespace BE_NewsApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<CommentItem> Get(int id)
         {
-            return _context.Comments
-                .Where(u => u.Id == id).FirstOrDefault();
+            return _context.Comments.FirstOrDefault(u => u.Id == id);
         }
 
         // POST api/<controller>
@@ -62,8 +61,7 @@ namespace BE_NewsApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<CommentItem>> Delete(int id)
         {
-            var deleteComment = _context.Comments
-                .Where(u => u.Id == id).FirstOrDefault();
+            var deleteComment = _context.Comments.FirstOrDefault(u => u.Id == id);
 
             _context.Comments.Remove(deleteComment);
             await _context.SaveChangesAsync();

@@ -57,8 +57,7 @@ namespace BE_NewsApi.Controllers
         public ActionResult<ArticleItem> Get(int id, Paging paging)
         {
 
-            return _context.Articles
-                .Where(u => u.Id == id).FirstOrDefault();
+            return _context.Articles.FirstOrDefault(u => u.Id == id);
         }
 
         // POST api/<controller>

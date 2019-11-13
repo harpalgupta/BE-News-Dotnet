@@ -35,8 +35,7 @@ namespace BE_NewsApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<UserItem> Get(int id)
         {
-            return _context.Users
-                .Where(u => u.Id == id).FirstOrDefault();
+            return _context.Users.FirstOrDefault(u => u.Id == id);
         }
 
         // POST api/<controller>
@@ -60,8 +59,7 @@ namespace BE_NewsApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<UserItem>> Delete(int id)
         {
-            var deleteUser = _context.Users
-                .Where(u => u.Id == id).FirstOrDefault();
+            var deleteUser = _context.Users.FirstOrDefault(u => u.Id == id);
 
             _context.Users.Remove(deleteUser);
             await _context.SaveChangesAsync();

@@ -36,8 +36,7 @@ namespace BE_NewsApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<TopicItem> Get(string slug)
         {
-            return _context.Topics
-                .Where(u => u.Slug == slug).FirstOrDefault();
+            return _context.Topics.FirstOrDefault(u => u.Slug == slug);
         }
 
         // POST api/<controller>
@@ -61,8 +60,7 @@ namespace BE_NewsApi.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<TopicItem>> Delete(string slug)
         {
-            var deleteTopic = _context.Topics
-                .Where(t => t.Slug == slug).FirstOrDefault();
+            var deleteTopic = _context.Topics.FirstOrDefault(t => t.Slug == slug);
 
             _context.Topics.Remove(deleteTopic);
             await _context.SaveChangesAsync();
